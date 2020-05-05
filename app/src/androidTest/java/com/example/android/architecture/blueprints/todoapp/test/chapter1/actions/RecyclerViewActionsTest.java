@@ -34,6 +34,7 @@ import static com.example.android.architecture.blueprints.todoapp.test.chapter4.
 public class RecyclerViewActionsTest extends BaseTest {
 
     private ViewInteraction todoSavedSnackbar = onView(withText(R.string.successfully_saved_task_message));
+    private CustomSwipeActions customSwipeActions = new CustomSwipeActions();
 
     @Test
     public void addNewToDos() throws Exception {
@@ -67,7 +68,7 @@ public class RecyclerViewActionsTest extends BaseTest {
     public void refreshListOfTasksByUsingSwipe() throws  Exception {
         generateToDos(2);
         onView(withId(R.id.tasks_list))
-                .perform(CustomSwipeActions.swipeCustom(10, GeneralLocation.TOP_CENTER,GeneralLocation.CENTER));
+                .perform(customSwipeActions.swipeCustom(10, GeneralLocation.TOP_CENTER,GeneralLocation.CENTER));
     }
 
     @Test
