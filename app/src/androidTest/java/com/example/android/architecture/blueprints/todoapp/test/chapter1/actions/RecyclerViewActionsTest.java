@@ -47,14 +47,20 @@ public class RecyclerViewActionsTest extends BaseTest {
                 .perform(scrollToPosition(2));
     }
 
+    /*
+        Seems like after using scrollToPosition with parameter greater than quantity of
+        list elements wont scroll but also wont fail test .Method actionOnItemAtPosition(position , click())
+        scrolls to specific position then perform click , used with position value greater than actual list
+        quantity will fail
+     */
     @Test
     public void addNewToDosChained() throws Exception {
-        generateToDos(12);
+        generateToDos(17);
         onView(withId(R.id.tasks_list))
-                .perform(actionOnItemAtPosition(10, scrollTo()))
+                .perform(actionOnItemAtPosition(1, scrollTo()))
                 .perform(scrollToPosition(1))
-                .perform(scrollToPosition(11))
-                .perform(actionOnItemAtPosition(11, click()));
+                .perform(scrollToPosition(33))
+                .perform(actionOnItemAtPosition(16, click()));
         Espresso.pressBack();
         onView(withId(R.id.tasks_list)).perform(scrollToPosition(2));
     }
@@ -69,6 +75,7 @@ public class RecyclerViewActionsTest extends BaseTest {
 
     /**
      * Helper function that adds needed TO-DOs amount.
+     *
      * @param count - amount of TO-DOs to add.
      * @throws Exception
      */
