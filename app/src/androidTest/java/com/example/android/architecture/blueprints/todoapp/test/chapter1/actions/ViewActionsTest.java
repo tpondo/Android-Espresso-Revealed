@@ -13,6 +13,8 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -95,5 +97,46 @@ public class ViewActionsTest extends BaseTest {
 
         // Verify edited TO-DO is shown.
         onView(withText(editedToDoTitle)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void completesAddedToDo() {
+        // Add new TO-DO.
+        onView(withId(R.id.fab_add_task)).perform(click());
+        onView(withId(R.id.add_task_title))
+                .perform(typeText(toDoTitle), closeSoftKeyboard());
+        onView(withId(R.id.add_task_description))
+                .perform(typeText(toDoDescription), closeSoftKeyboard());
+        onView(withId(R.id.fab_edit_task_done)).perform(click());
+
+        // Complete added TO-DO
+        onView(allOf(withId(R.id.todo_complete), hasSibling(withText(toDoTitle))))
+                .perform(click());
+
+        // Verify added TO-DO is completed
+        onView(withId(R.id.todo_complete)).check(matches(isChecked()));
+    }
+
+    @Test
+    public void removesAddedToDo(){
+        // Add new TO-DO.
+        onView(withId(R.id.fab_add_task)).perform(click());
+        onView(withId(R.id.add_task_title))
+                .perform(typeText(toDoTitle), closeSoftKeyboard());
+        onView(withId(R.id.add_task_description))
+                .perform(typeText(toDoDescription), closeSoftKeyboard());
+        onView(withId(R.id.fab_edit_task_done)).perform(click());
+
+        // Open added TO-DO
+        onView(withText(toDoTitle)).perform(click());
+
+        // Delete opened TO-Do
+        onView(allOf(withId(R.id.menu_delete), withText("Delete task")))
+                .perform(click());
+
+        // Verify that task is no longer available on the dashboard
+        onView(allOf(withId(R.id.noTasksMain), withText("You have no TO-DOs!")))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.noTasksIcon)).check(matches(isDisplayed()));
     }
 }
