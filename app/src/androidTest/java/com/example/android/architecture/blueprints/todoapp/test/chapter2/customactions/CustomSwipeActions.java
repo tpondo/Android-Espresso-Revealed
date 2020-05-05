@@ -23,7 +23,7 @@ public class CustomSwipeActions {
      * @param from     for example [GeneralLocation.CENTER]
      * @param to       for example [GeneralLocation.BOTTOM_CENTER]
      */
-    public ViewAction swipeCustom(int duration, GeneralLocation from, GeneralLocation to) {
+    public static ViewAction swipeCustom(int duration, GeneralLocation from, GeneralLocation to) {
         CustomSwipe.CUSTOM.setSwipeDuration(duration);
         return actionWithAssertions(new GeneralSwipeAction(
                 CustomSwipe.CUSTOM,
