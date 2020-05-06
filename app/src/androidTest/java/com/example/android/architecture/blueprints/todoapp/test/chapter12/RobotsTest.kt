@@ -17,8 +17,8 @@ class RobotsTest : BaseTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        toDoTitle = TestData.getToDoTitle()
-        toDoDescription = TestData.getToDoDescription()
+        toDoTitle = TestData.toDoTitle
+        toDoDescription = TestData.toDoDescription
     }
 
     /**

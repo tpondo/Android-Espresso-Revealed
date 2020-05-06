@@ -25,8 +25,8 @@ class AccessibilityTest : BaseTest() {
 
     @Test
     fun addsTodo() {
-        val toDoTitle = TestData.getToDoTitle()
-        val toDoDescription = TestData.getToDoDescription()
+        val toDoTitle = TestData.toDoTitle
+        val toDoDescription = TestData.toDoDescription
 
         // Add new TO-DO.
         onView(withId(R.id.fab_add_task)).perform(click())

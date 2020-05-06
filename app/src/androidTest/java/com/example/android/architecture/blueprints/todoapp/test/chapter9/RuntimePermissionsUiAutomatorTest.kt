@@ -42,7 +42,7 @@ class RuntimePermissionsUiAutomatorTest {
 
     @Test
     fun takesCameraPicture() {
-        val toDoTitle = TestData.getToDoTitle()
+        val toDoTitle = TestData.toDoTitle
 
         // Add new TO-DO.
         onView(withId(R.id.fab_add_task)).perform(click())
@@ -64,7 +64,7 @@ class RuntimePermissionsUiAutomatorTest {
 
     @Test
     fun deniesAndGrantsPermission() {
-        val toDoTitle = TestData.getToDoTitle()
+        val toDoTitle = TestData.toDoTitle
 
         onView(withId(R.id.fab_add_task)).perform(click())
         onView(withId(R.id.add_task_title))
@@ -87,7 +87,7 @@ class RuntimePermissionsUiAutomatorTest {
 
     @Test
     fun deniesAndGrantsPermissionFromSettings() {
-        val toDoTitle = TestData.getToDoTitle()
+        val toDoTitle = TestData.toDoTitle
 
         onView(withId(R.id.fab_add_task)).perform(click())
         // Since the title EditText has focus keyboard appears and we have to close it
