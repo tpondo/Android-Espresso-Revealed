@@ -60,6 +60,12 @@ public class RecyclerViewActionsTest extends BaseTest {
     }
 
     @Test
+    public void verifiesThatItemIsNotPresentOnTheList() throws Exception{
+        generateToDos(2);
+        onView(withId(R.id.tasks_list)).perform(new CustomRecyclerViewActions.NotInTheListTodoWithTitle("item 1"));
+    }
+
+    @Test
     public void completeToDo() throws Exception {
         generateToDos(10);
         onView(withId(R.id.tasks_list)).perform(clickTodoCheckBoxWithTitle("item 2"));
