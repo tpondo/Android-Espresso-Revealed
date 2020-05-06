@@ -41,7 +41,7 @@ android {
     }
 
     testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
+//        execution 'ANDROID_TEST_ORCHESTRATOR'
     }
 
     flavorDimensions "default"
@@ -93,7 +93,7 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
-    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
+//    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
