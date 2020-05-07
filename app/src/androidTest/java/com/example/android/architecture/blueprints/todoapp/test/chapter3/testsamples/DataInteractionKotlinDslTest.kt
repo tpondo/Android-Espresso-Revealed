@@ -47,7 +47,7 @@ class DataInteractionKotlinDslTest : BaseTest() {
         okDialogButton.click()
         shareEmailItem
                 .inAdapterView(allOf(withId(list), parentWithId(list_container)))
-                .childById(summary)
+                .childById(android.R.id.summary)
                 .checkWithText("sample@ema.il")
     }
 }
