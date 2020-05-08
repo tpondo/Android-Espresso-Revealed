@@ -1,5 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter4.conditionwatchers
 
+import android.support.test.espresso.DataInteraction
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.NoMatchingViewException
 import android.support.test.espresso.ViewInteraction
@@ -70,6 +71,32 @@ object ConditionWatchers {
     fun waitForElement(
             interaction: ViewInteraction,
             timeout: Int = 5000): ViewInteraction {
+        ConditionWatcher.setTimeoutLimit(timeout)
+        ConditionWatcher.waitForCondition(object : Instruction() {
+
+            override fun getDescription(): String {
+                return "waitForElement"
+            }
+
+            override fun checkCondition(): Boolean {
+                try {
+                    interaction.check(matches(isDisplayed()))
+                    return true
+                } catch (ex: NoMatchingViewException) {
+                    return false
+                }
+
+            }
+        })
+        return interaction
+    }
+
+    /*
+    Helper method that waits for element which is based on DataInteraction
+     */
+    fun waitForElement(
+            interaction: DataInteraction,
+            timeout: Int = 5000): DataInteraction {
         ConditionWatcher.setTimeoutLimit(timeout)
         ConditionWatcher.waitForCondition(object : Instruction() {
 
