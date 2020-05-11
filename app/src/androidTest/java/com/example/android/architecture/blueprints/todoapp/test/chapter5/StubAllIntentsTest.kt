@@ -2,10 +2,12 @@ package com.example.android.architecture.blueprints.todoapp.test.chapter5
 
 import android.app.Activity
 import android.app.Instrumentation
+import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu
+import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.Intents.intending
-import android.support.test.espresso.intent.matcher.IntentMatchers.isInternal
+import android.support.test.espresso.intent.matcher.IntentMatchers.*
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
@@ -55,6 +57,7 @@ class StubAllIntentsTest {
     @Test
     fun stubsShareIntent() {
         // adding new TO-DO
+
         addFab.click()
         taskTitleField.type(toDoTitle).closeKeyboard()
         taskDescriptionField.type(toDoDescription).closeKeyboard()
@@ -63,6 +66,7 @@ class StubAllIntentsTest {
         viewWithText(toDoTitle).checkDisplayed()
         openContextualActionModeOverflowMenu()
         shareMenuItem.click()
-        //viewWithText(toDoTitle).click()
+        intended(allOf(hasAction(Intent.ACTION_SEND), hasType("text/plain")))
+        viewWithText(toDoTitle).click()
     }
 }

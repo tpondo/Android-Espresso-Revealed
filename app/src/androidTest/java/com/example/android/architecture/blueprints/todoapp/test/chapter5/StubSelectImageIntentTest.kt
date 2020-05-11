@@ -11,6 +11,7 @@ import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTa
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.test.chapter1.data.TestData
 import com.example.android.architecture.blueprints.todoapp.test.chapter3.*
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -45,7 +46,8 @@ class StubSelectImageIntentTest {
         val toDoImage =
                 com.example.android.architecture.blueprints.todoapp.mock.test.R.drawable.todo_image_drawable
 
-        Intents.intending(not(isInternal()))
+
+        Intents.intending(hasType("image/*"))
                 .respondWith(IntentHelper.createImageResultFromDrawable(toDoImage))
 
         // Adding new TO-DO.
@@ -63,7 +65,7 @@ class StubSelectImageIntentTest {
     fun stubsImageIntentWithAsset() {
         val imageFromAssets = "todo_image_assets.png"
 
-        Intents.intending(not(isInternal()))
+        Intents.intending(hasAction(equalTo(Intent.ACTION_GET_CONTENT)))
                 .respondWith(IntentHelper.createImageResultFromAssets(imageFromAssets))
 
         // Adding new TO-DO.
@@ -79,7 +81,8 @@ class StubSelectImageIntentTest {
         addImageButton.click()
 
         // Validate sent intent action.
-        intended(hasAction(Intent.ACTION_GET_CONTENT))
+        intended(hasAction(Intent.ACTION_GET_RESTRICTION_ENTRIES))
+        Thread.sleep(5000)
 
         editDoneFab.click()
         viewWithText(toDoTitle).click()
