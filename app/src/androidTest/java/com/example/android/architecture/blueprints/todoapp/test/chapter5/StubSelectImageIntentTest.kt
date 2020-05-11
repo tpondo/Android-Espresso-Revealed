@@ -82,7 +82,6 @@ class StubSelectImageIntentTest {
 
         // Validate sent intent action.
         intended(hasAction(Intent.ACTION_GET_CONTENT))
-        Thread.sleep(5000)
 
         editDoneFab.click()
         viewWithText(toDoTitle).click()
