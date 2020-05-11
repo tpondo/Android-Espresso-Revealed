@@ -1,6 +1,11 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter5
 
+import android.app.Activity
+import android.app.Instrumentation
+import android.content.ContentResolver
 import android.content.Intent
+import android.net.Uri
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.*
@@ -11,6 +16,7 @@ import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTa
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.test.chapter1.data.TestData
 import com.example.android.architecture.blueprints.todoapp.test.chapter3.*
+import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -83,5 +89,39 @@ class StubSelectImageIntentTest {
 
         editDoneFab.click()
         viewWithText(toDoTitle).click()
+    }
+
+    @Test
+    fun test_validateGalleryIntent() {
+        // GIVEN
+        val expectedIntent = allOf(
+                hasAction(Intent.ACTION_GET_CONTENT),
+                hasType("image/*")
+        )
+
+        Intents.intending(expectedIntent)
+                .respondWith(createGalleryPickActivityStub())
+
+        // Adding new TO-DO.
+        addFab.click()
+        taskTitleField.type(toDoTitle).closeKeyboard()
+        taskDescriptionField.type(toDoDescription).closeKeyboard()
+
+        // Click on Get image from gallery button. At this point stubbed image is returned.
+        addImageButton.click()
+        editDoneFab.click()
+        viewWithText(toDoTitle).click()
+    }
+
+    private fun createGalleryPickActivityStub(): Instrumentation.ActivityResult {
+        val resultIntent = Intent()
+        val testResources = InstrumentationRegistry.getInstrumentation().context.resources
+
+        // Build a stubbed result from drawable image.
+        resultIntent.data = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+                + "://${testResources.getResourcePackageName(R.drawable.ic_check_circle_24dp)}"
+                + "/${testResources.getResourceTypeName(R.drawable.ic_check_circle_24dp)}"
+                + "/${testResources.getResourceEntryName(R.drawable.ic_check_circle_24dp)}")
+        return Instrumentation.ActivityResult(Activity.RESULT_OK, resultIntent)
     }
 }
