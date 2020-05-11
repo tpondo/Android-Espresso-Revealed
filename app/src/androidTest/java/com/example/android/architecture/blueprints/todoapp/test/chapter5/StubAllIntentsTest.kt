@@ -56,8 +56,11 @@ class StubAllIntentsTest {
 
     @Test
     fun stubsShareIntent() {
+        val expectedIntent = allOf(
+                hasAction(Intent.ACTION_SEND),
+                hasType("text/plain")
+        )
         // adding new TO-DO
-
         addFab.click()
         taskTitleField.type(toDoTitle).closeKeyboard()
         taskDescriptionField.type(toDoDescription).closeKeyboard()
@@ -66,7 +69,7 @@ class StubAllIntentsTest {
         viewWithText(toDoTitle).checkDisplayed()
         openContextualActionModeOverflowMenu()
         shareMenuItem.click()
-        intended(allOf(hasAction(Intent.ACTION_SEND), hasType("text/plain")))
+        intended(expectedIntent)
         viewWithText(toDoTitle).click()
     }
 }
