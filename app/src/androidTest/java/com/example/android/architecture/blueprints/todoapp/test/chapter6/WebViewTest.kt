@@ -58,7 +58,7 @@ class WebViewTest : BaseTest() {
                 .perform(click())
         onWebView()
                 // Find radio button by CSS.
-                .withElement(findElement(Locator.CSS_SELECTOR, "input[value=\"rb1\"]"))
+                .withElement(findElement(Locator.CSS_SELECTOR, "input[value=\"rb2\"]"))
                 .perform(webClick())
     }
 
@@ -170,5 +170,44 @@ class WebViewTest : BaseTest() {
                 // Find element by Locator.CLASS_NAME
                 .withElement(findElement(Locator.CLASS_NAME, "header"))
                 .check(webMatches(webScrollIntoView(), `is`(true)))
+    }
+
+    @Test
+    fun findsElementByXpathExercise18() {
+        openDrawer()
+        onView(allOf(withId(R.id.design_menu_item_text),
+                withText(R.string.settings_title))).perform(click())
+        onData(instanceOf(PreferenceActivity.Header::class.java))
+                .inAdapterView(withId(android.R.id.list))
+                .atPosition(3)
+                .perform(click())
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "/html/body/div/h1[1]")) // first h1 header
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "/html/body/div/h3[1]")) // first h3 header
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "/html/body/div/h3[2]")) // second h3 header
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "//*[@id=\"submit_btn\"]")) // submit button
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "//*[@id=\"updateDetails\"]")) // update details button
+        onWebView()
+                .withElement(findElement(Locator.XPATH, "//a[@name=\"espresso_web\"]")) // link with name attribute
+    }
+
+    @Test
+    fun findsElementByCssSelectorExercise18() {
+        openDrawer()
+        onView(allOf(withId(R.id.design_menu_item_text),
+                withText(R.string.settings_title))).perform(click())
+        onData(instanceOf(PreferenceActivity.Header::class.java))
+                .inAdapterView(withId(android.R.id.list))
+                .atPosition(3)
+                .perform(click())
+        onWebView()
+                .withElement(findElement(Locator.CSS_SELECTOR, "a[name=\"espresso_web\"]")) // link with name attribute
+
+        onWebView()
+                .withElement(findElement(Locator.CSS_SELECTOR, "label#message")) // label with message id
     }
 }

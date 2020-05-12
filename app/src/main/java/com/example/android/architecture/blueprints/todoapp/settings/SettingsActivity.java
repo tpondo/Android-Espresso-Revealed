@@ -40,6 +40,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.android.architecture.blueprints.todoapp.BuildConfig;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity;
 
@@ -398,6 +399,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
+            WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
             View v = inflater.inflate(R.layout.webview_act, container, false);
             WebView mWebView = v.findViewById(R.id.web_view);
 
