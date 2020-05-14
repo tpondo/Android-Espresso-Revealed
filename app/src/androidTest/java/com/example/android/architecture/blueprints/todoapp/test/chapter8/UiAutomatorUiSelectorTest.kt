@@ -3,6 +3,7 @@ package com.example.android.architecture.blueprints.todoapp.test.chapter8
 import android.support.test.InstrumentationRegistry
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.support.test.uiautomator.By
 import android.support.test.uiautomator.UiDevice
 import android.support.test.uiautomator.UiSelector
 import android.support.v7.widget.RecyclerView
@@ -110,5 +111,40 @@ class UiAutomatorUiSelectorTest {
         firstTodoItem.click()
         assertTrue("To-Do \"item 1\" is not shown.", taskDetailsTitle.exists())
         assertTrue("To-Do \"item 1\" title was wrong.", taskDetailsTitle.text.equals("item 1"))
+    }
+
+    @Test
+    fun createAndModifeTodoItemExercise20_1() {
+        /*
+        ELEMENTS
+         */
+        val itemName = "just one todo"
+        val modifiedItemName = "$itemName modified"
+        val fabAddTask = uiDevice.findObject(UiSelector().resourceId(
+                "com.example.android.architecture.blueprints.todoapp.mock:id/fab_add_task"))
+        val taskTitle = uiDevice.findObject(UiSelector().resourceId(
+                "com.example.android.architecture.blueprints.todoapp.mock:id/add_task_title"))
+        val fabDone = uiDevice.findObject(UiSelector().resourceId(
+                "com.example.android.architecture.blueprints.todoapp.mock:id/fab_edit_task_done"))
+        val todoSavedText = uiDevice.findObject(UiSelector().text("TO-DO saved"))
+        val fabEditTask = uiDevice.findObject(UiSelector().resourceId(
+                "com.example.android.architecture.blueprints.todoapp.mock:id/fab_edit_task"))
+        val todoItem = uiDevice.findObject(UiSelector().text(itemName))
+
+        // Add To-Do item.
+        fabAddTask.click()
+        taskTitle.text = itemName
+        fabDone.click()
+        todoSavedText.waitUntilGone(fourSecondsTimeout)
+
+        // Edit created To-Do item
+        todoItem.click()
+        fabEditTask.click()
+        taskTitle.text = modifiedItemName
+        fabDone.click()
+
+        // Check if modified name is displayed on the list
+        assertTrue("Todo item has name which is not modified", uiDevice.hasObject(By.text(modifiedItemName)))
+
     }
 }
