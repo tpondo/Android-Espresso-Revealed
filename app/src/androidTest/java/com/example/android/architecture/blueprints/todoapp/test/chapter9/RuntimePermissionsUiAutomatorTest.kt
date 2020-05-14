@@ -1,6 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter9
 
 import android.content.Intent
+import com.example.android.architecture.blueprints.todoapp.R.id.*
 import android.net.Uri
 import android.provider.Settings
 import android.support.test.InstrumentationRegistry
@@ -51,6 +52,7 @@ class RuntimePermissionsUiAutomatorTest {
 
         // Click on camera button to trigger the permission dialog.
         onView(withId(R.id.makePhoto)).perform(click())
+        onView(allOf(withId(snackbar_action), withText("OK"))).perform(click())
 
         // UIAutomator - click permission dialog ALLOW button.
         uiDevice.findObject(By.res("com.android.packageinstaller:id/permission_allow_button")).click()
@@ -122,6 +124,23 @@ class RuntimePermissionsUiAutomatorTest {
                 .perform(typeText(toDoTitle), closeSoftKeyboard())
         onView(withId(R.id.makePhoto)).perform(click())
         onView(withId(R.id.picture)).perform(click())
+        waitForElement(onView(withId(R.id.fab_edit_task_done))).perform(click())
+        onView(withText(toDoTitle)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun enableCameraPermissionOnSettingsViewThenProceedWithTaskCreation() {
+        val toDoTitle = TestData.getToDoTitle()
+
+        sendApplicationSettingsIntent()
+        enableCameraPermission()
+        launchBackToDoApplication()
+
+        onView(withId(fab_add_task)).perform(click())
+        onView(withId(add_task_title))
+                .perform(typeText(toDoTitle), closeSoftKeyboard())
+        onView(withId(makePhoto)).perform(click())
+        onView(withId(picture)).perform(click())
         waitForElement(onView(withId(R.id.fab_edit_task_done))).perform(click())
         onView(withText(toDoTitle)).check(matches(isDisplayed()))
     }
