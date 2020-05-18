@@ -5,11 +5,9 @@ class DataAndSyncScreen : BaseScreen() {
     ELEMENTS
      */
 
-
     /*
     ACTIONS
      */
-
 
     /*
     HELPERS
