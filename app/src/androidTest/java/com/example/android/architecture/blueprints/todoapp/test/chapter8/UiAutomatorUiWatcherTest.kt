@@ -32,6 +32,7 @@ class UiAutomatorUiWatcherTest {
 
     @Test
     fun dismissesStatisticsDialogUsingWatcher() {
+        registerStatisticsDialogWatcher()
 
         val toolbar =
                 "com.example.android.architecture.blueprints.todoapp.mock:id/toolbar"

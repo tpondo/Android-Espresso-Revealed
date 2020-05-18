@@ -1,6 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter11.tests
 
 import com.example.android.architecture.blueprints.todoapp.test.BaseTest
+import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.AddEditToDoScreen
 import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.ToDoListScreen
 import com.example.android.architecture.blueprints.todoapp.test.chapter11.testdata.TodoItem
 import org.junit.Test
@@ -9,10 +10,13 @@ import org.junit.Test
  * Validates TO-DOs creation flows using Screen Object Pattern.
  */
 class AddToDoTest : BaseTest() {
+    private val addEditToDoScreen = AddEditToDoScreen()
+    private val toDoListScreen = ToDoListScreen()
 
     @Test
     fun addsNewTodo() {
-        ToDoListScreen()
+
+        toDoListScreen
                 .clickAddFabButton()
                 .addNewToDo(todoItem)
                 .verifyToDoIsDisplayed(todoItem)
@@ -20,7 +24,7 @@ class AddToDoTest : BaseTest() {
 
     @Test
     fun addsNewTodoWithoutDescription() {
-        ToDoListScreen()
+        toDoListScreen
                 .clickAddFabButton()
                 .typeToDoTitle(todoItem.title)
                 .clickDoneFabButton()
@@ -29,7 +33,7 @@ class AddToDoTest : BaseTest() {
 
     @Test
     fun triesToAddEmptyToDo() {
-        ToDoListScreen()
+        toDoListScreen
                 .clickAddFabButton()
                 .addEmptyToDo()
                 .verifySnackbarForEmptyToDo()

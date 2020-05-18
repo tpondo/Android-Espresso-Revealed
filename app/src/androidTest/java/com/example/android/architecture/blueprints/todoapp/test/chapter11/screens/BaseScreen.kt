@@ -1,12 +1,20 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter11.screens
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.ViewInteraction
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.uiautomator.UiDevice
+import android.support.test.uiautomator.UiObject
+import android.support.test.uiautomator.UiSelector
+import android.view.View
 import android.widget.ImageButton
 import com.example.android.architecture.blueprints.todoapp.R
 import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.Matcher
 import org.hamcrest.core.AllOf.allOf
 
 /**
@@ -59,6 +67,26 @@ open class BaseScreen {
             statisticsMenuItem.check(matches(isDisplayed()))
             todoListMenuItem.check(matches(isDisplayed()))
             return this
+        }
+    }
+
+    fun viewExists(element: Matcher<View>): Boolean {
+        return try {
+            onView(element).perform(click())
+            true
+        } catch (e: Throwable) {
+            false
+        }
+    }
+
+    fun uiObjectWithSpecificTextExists(textOfElement: String): Boolean {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val uiDevice: UiDevice = UiDevice.getInstance(instrumentation)
+        return try {
+            uiDevice.findObject(UiSelector().text(textOfElement))
+            true
+        } catch (e: Throwable) {
+            false
         }
     }
 }
