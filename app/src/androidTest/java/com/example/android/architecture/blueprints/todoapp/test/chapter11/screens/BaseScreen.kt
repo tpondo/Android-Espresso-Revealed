@@ -65,6 +65,7 @@ open class BaseScreen {
         }
     }
 
+
     fun viewExists(element: Matcher<View>): Boolean {
         return try {
             onView(element).perform(NoAction())
