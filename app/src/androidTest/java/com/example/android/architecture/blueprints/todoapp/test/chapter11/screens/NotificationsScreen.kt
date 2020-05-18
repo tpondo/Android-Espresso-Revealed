@@ -1,6 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.test.chapter11.screens
 
-import android.R
+
 import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
@@ -8,6 +8,7 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.PreferenceMatchers.withKey
 import android.support.test.espresso.matcher.ViewMatchers.*
 import org.hamcrest.CoreMatchers.allOf
+import com.example.android.architecture.blueprints.todoapp.R
 
 
 class NotificationsScreen : BaseScreen() {
@@ -16,26 +17,30 @@ class NotificationsScreen : BaseScreen() {
     ELEMENTS
      */
     private val enableNotificationsOption = allOf(
-            withId(R.id.title),
-            withText("Enable notifications"),
+            withId(android.R.id.title),
+            withText(R.string.pref_title_new_message_notifications),
             isCompletelyDisplayed()
     )
     private val notifyWhenToDoOlderThanOption = allOf(
-            withId(R.id.title),
-            withText("Notify when TO-DO older than"),
+            withId(android.R.id.title),
+            withText(R.string.slider_title),
             isCompletelyDisplayed()
     )
     private val ringtoneOption = allOf(
-            withId(R.id.title),
-            withText("Ringtone"),
+            withId(android.R.id.title),
+            withText(R.string.pref_title_ringtone),
             isCompletelyDisplayed()
     )
     private val vibrateOption = allOf(
-            withId(R.id.title),
-            withText("Vibrate"),
+            withId(android.R.id.title),
+            withText(R.string.pref_title_vibrate),
             isCompletelyDisplayed()
     )
-
+    private val notificationSwitch = allOf(
+            withId(android.R.id.switch_widget),
+            withParent(hasSibling(withChild(withText(R.string.pref_title_new_message_notifications)))),
+            isCompletelyDisplayed()
+    )
 
     /*
     ACTIONS
@@ -55,10 +60,7 @@ class NotificationsScreen : BaseScreen() {
      */
     private fun isNotificationSwitchEnabled(): Boolean {
         return try {
-            onData(withKey("notifications_new_message"))
-                    .inAdapterView(allOf(withId(R.id.list), withParent(withId(R.id.list_container))))
-                    .onChildView(allOf(withId(R.id.switch_widget), withParent(hasSibling(withChild(withText("Enable notifications"))))))
-                    .check(matches(isChecked()))
+            onView(notificationSwitch).check(matches(isChecked()))
             true
         } catch (e: Throwable) {
             false
