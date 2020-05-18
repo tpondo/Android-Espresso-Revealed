@@ -36,7 +36,7 @@ class GeneralScreen : BaseScreen() {
     /*
     HELPERS
      */
-    fun isShareByEmailOptionExist(): Boolean {
+    fun isShareByEmailOptionDisplayed(): Boolean {
         return viewExists(shareByEmailOption)
     }
 }

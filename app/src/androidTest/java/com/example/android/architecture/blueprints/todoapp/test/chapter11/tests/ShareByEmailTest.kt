@@ -28,6 +28,6 @@ class ShareByEmailTest {
         generalScreen.tapCancelOnShareByEmailDialog()
 
         assertTrue("Previous screen with share by email option should be displayed after pressing Cancel on dialog view"
-                , generalScreen.isShareByEmailOptionExist())
+                , generalScreen.isShareByEmailOptionDisplayed())
     }
 }
