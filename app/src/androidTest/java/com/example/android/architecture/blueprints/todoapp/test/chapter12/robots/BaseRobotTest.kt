@@ -10,13 +10,6 @@ import org.hamcrest.CoreMatchers.instanceOf
 
 open class BaseRobotTest {
 
-    /*
-    ELEMENTS
-     */
-
-    /*
-    ACTIONS
-     */
     companion object Drawer {
         /*
         ELEMENTS
