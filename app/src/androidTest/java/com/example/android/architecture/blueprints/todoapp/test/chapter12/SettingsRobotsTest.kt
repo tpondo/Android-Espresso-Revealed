@@ -16,7 +16,7 @@ class SettingsRobotsTest {
     var activityTestRule = ActivityTestRule(SettingsActivity::class.java)
 
     @Test
-    fun goToGeneral() {
+    fun goToGeneralAndVerifyIfShareByEmailOptionIsDisplayed() {
      settings {
          checkDefaultLayout()
      }.clickOnGeneralOption {
