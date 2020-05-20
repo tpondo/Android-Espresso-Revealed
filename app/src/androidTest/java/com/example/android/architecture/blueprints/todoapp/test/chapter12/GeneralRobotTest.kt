@@ -6,7 +6,7 @@ import com.example.android.architecture.blueprints.todoapp.test.chapter12.robots
 import org.junit.Rule
 import org.junit.Test
 
-class SettingsRobotsTest {
+class GeneralRobotTest {
 
     /*
  Starting from Settings activity , just to make test shorter and avoid
@@ -16,11 +16,12 @@ class SettingsRobotsTest {
     var activityTestRule = ActivityTestRule(SettingsActivity::class.java)
 
     @Test
-    fun goToGeneralAndVerifyIfShareByEmailOptionIsDisplayed() {
-     settings {
-         checkDefaultLayout()
-     }.clickOnGeneralOption {
-        isShareByEmailOptionDisplayed()
-     }
+    fun cancelsShareByEmailDialog() {
+        settings {
+            clickOnGeneralOption {
+                clickOnShareByEmailOption()
+                cancelShareByEmailDialog()
+            }
+        }
     }
 }
