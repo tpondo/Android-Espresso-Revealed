@@ -1,11 +1,12 @@
 package com.example.android.architecture.blueprints.todoapp.test.helpers
 
+
+import androidx.fragment.app.FragmentActivity
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.runner.lifecycle.Stage.RESUMED
-import androidx.fragment.app.FragmentActivity
 
 
 object Utils {
@@ -25,12 +26,13 @@ object Utils {
      * @param resourceId - id of string resource from strings.xml file
      * @return Text representation of String resource
      */
-    fun getStringFromTestResource(resourceId: Int): String {
-        return InstrumentationRegistry
-                .getContext()
-                .resources
-                .getString(resourceId)
-    }
+//    fun getStringFromTestResource(resourceId: Int): String {
+//        return InstrumentationRegistry
+//                .getContext()
+//                .resources
+//                .getString(resourceId)
+//
+//    }
 
     /**
      * Returns activity in stage RESUMED which is displayed to the user.
