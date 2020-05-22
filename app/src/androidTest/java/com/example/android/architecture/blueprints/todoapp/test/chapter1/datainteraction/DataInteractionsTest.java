@@ -76,7 +76,7 @@ public class DataInteractionsTest extends BaseTest {
                 .check(matches(withText("Notifications")))
                 .perform(click());
 
-        // Enable notifications is disabled
+        // Enable notifications if disabled
         if (!isNotificationSwitchEnabled()) {
             onData(withKey("notifications_new_message"))
                     .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
