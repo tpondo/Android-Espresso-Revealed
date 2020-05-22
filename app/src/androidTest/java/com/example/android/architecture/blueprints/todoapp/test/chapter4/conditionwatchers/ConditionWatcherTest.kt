@@ -2,10 +2,12 @@ package com.example.android.architecture.blueprints.todoapp.test.chapter4.condit
 
 import com.example.android.architecture.blueprints.todoapp.R.id.*
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.assertion.ViewAssertions.doesNotExist
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.test.BaseTest
+import com.example.android.architecture.blueprints.todoapp.test.chapter3.checkDoesNotExist
 import com.example.android.architecture.blueprints.todoapp.test.chapter3.click
 import com.example.android.architecture.blueprints.todoapp.test.chapter3.viewWithId
 import com.example.android.architecture.blueprints.todoapp.test.chapter3.viewWithText
@@ -13,6 +15,7 @@ import com.example.android.architecture.blueprints.todoapp.test.chapter4.conditi
 import com.example.android.architecture.blueprints.todoapp.test.chapter4.conditionwatchers.ConditionWatchers.waitForElementIsGone
 import com.example.android.architecture.blueprints.todoapp.test.helpers.CommonElements.openDrawer
 import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.core.IsNot.not
 import org.junit.Test
 
 
@@ -44,5 +47,7 @@ class ConditionWatcherTest : BaseTest() {
         settingsOption.click()
 
         waitForElementIsGone(drawerMenu, 400)
+
+        drawerMenu.check(doesNotExist())
     }
 }
