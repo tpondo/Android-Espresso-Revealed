@@ -25,6 +25,7 @@ import static com.example.android.architecture.blueprints.todoapp.test.helpers.C
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.not;
 
 /**
  * DataInteraction samples.
@@ -61,7 +62,7 @@ public class DataInteractionsTest extends BaseTest {
     }
 
     @Test
-    public void dataInteractionExercise() {
+    public void enablesNotificationsAndVerifiesIfAdditionalOptionsAreVisible() {
         // Navigate to Settings
         openDrawer();
         onView(allOf(withId(R.id.design_menu_item_text),
@@ -75,30 +76,29 @@ public class DataInteractionsTest extends BaseTest {
                 .check(matches(withText("Notifications")))
                 .perform(click());
 
-        // Enable notifications
-        onData(withKey("notifications_new_message"))
-                .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
-                .onChildView(allOf(withId(android.R.id.title), withText("Enable notifications")))
-                .perform(click());
-
-        if (isNotificationSwitchEnabled()) {
-            // Verify if notify when TO_DO older than option is visible
-            onData(withKey("notifications_slider"))
+        // Enable notifications is disabled
+        if (!isNotificationSwitchEnabled()) {
+            onData(withKey("notifications_new_message"))
                     .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
-                    .onChildView(allOf(withId(android.R.id.title), withText("Notify when TO-DO older than")))
-                    .check(matches(isDisplayed()));
-            // Verify if Ringtone option is visible
-            onData(withKey("notifications_new_message_ringtone"))
-                    .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
-                    .onChildView(allOf(withId(android.R.id.title), withText("Ringtone")))
-                    .check(matches(isDisplayed()));
-            // Verify if Vibrate option is visible
-            onData(withKey("notifications_new_message_vibrate"))
-                    .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
-                    .onChildView(allOf(withId(android.R.id.title), withText("Vibrate")))
-                    .check(matches(isDisplayed()));
+                    .onChildView(allOf(withId(android.R.id.title), withText("Enable notifications")))
+                    .perform(click());
         }
 
+        // Verify if notify when TO_DO older than option is visible
+        onData(withKey("notifications_slider"))
+                .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
+                .onChildView(allOf(withId(android.R.id.title), withText("Notify when TO-DO older than")))
+                .check(matches(isDisplayed()));
+        // Verify if Ringtone option is visible
+        onData(withKey("notifications_new_message_ringtone"))
+                .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
+                .onChildView(allOf(withId(android.R.id.title), withText("Ringtone")))
+                .check(matches(isDisplayed()));
+        // Verify if Vibrate option is visible
+        onData(withKey("notifications_new_message_vibrate"))
+                .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
+                .onChildView(allOf(withId(android.R.id.title), withText("Vibrate")))
+                .check(matches(isDisplayed()));
     }
 
     private Boolean isNotificationSwitchEnabled() {
