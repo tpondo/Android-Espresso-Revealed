@@ -68,7 +68,7 @@ public class RecyclerViewActionsTest extends BaseTest {
     public void refreshListOfTasksByUsingSwipe() throws  Exception {
         generateToDos(2);
         onView(withId(R.id.tasks_list))
-                .perform(customSwipeActions.swipeCustom(10, GeneralLocation.TOP_CENTER,GeneralLocation.CENTER));
+                .perform(customSwipeActions.swipeCustom(10, GeneralLocation.TOP_CENTER, GeneralLocation.CENTER));
     }
 
     @Test
