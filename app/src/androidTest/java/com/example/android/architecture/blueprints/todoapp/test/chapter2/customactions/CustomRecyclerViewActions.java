@@ -16,6 +16,7 @@ import com.example.android.architecture.blueprints.todoapp.tasks.TasksFragment;
 import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.action.ViewActions.actionWithAssertions;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static org.hamcrest.Matchers.allOf;
@@ -77,6 +78,63 @@ public interface CustomRecyclerViewActions extends ViewAction {
                 throw new PerformException.Builder().withActionDescription(this.getDescription())
                         .withViewDescription(HumanReadables.describe(view)).withCause(e).build();
             }
+        }
+    }
+
+    /*
+    RecyclerView action that verifies that the TO-DO item is not present in the list
+     */
+    class NotInTheListTodoWithTitle implements CustomRecyclerViewActions {
+
+        private String toDoTitle;
+
+        public NotInTheListTodoWithTitle(String toDoTitle) {
+            this.toDoTitle = toDoTitle;
+        }
+
+        public static ViewAction NotInTheListTodoWithTitle(final String toDoTitle) {
+            return actionWithAssertions(new NotInTheListTodoWithTitle(toDoTitle));
+        }
+
+        @Override
+        public Matcher<View> getConstraints() {
+            return allOf(isAssignableFrom(RecyclerView.class), isDisplayed());
+        }
+
+        @Override
+        public String getDescription() {
+            return "Verify that ToDo with title: \"" + toDoTitle + "\" is not present in the list.";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            try {
+                RecyclerView recyclerView = (RecyclerView) view;
+                RecyclerView.Adapter adapter = recyclerView.getAdapter();
+                if (adapter instanceof TasksFragment.TasksAdapter) {
+                    for (int i = 0; i < adapter.getItemCount(); i++) {
+                        View taskItemView = recyclerView.getLayoutManager().findViewByPosition(i);
+                        if (taskItemView != null) {
+                            TextView textView = taskItemView.findViewById(R.id.todo_title);
+                            if (textView != null && textView.getText() != null) {
+                                if (textView.getText().toString().equals(toDoTitle)) {
+                                    throw new Throwable(
+                                            "Found TO-DO item with title \"" + toDoTitle + "\"");
+                                }
+                            } else {
+                                assertThat(!taskItemView.isShown());
+                            }
+                        }
+                    }
+                }
+                uiController.loopMainThreadForAtLeast(ViewConfiguration.getTapTimeout());
+            } catch (Throwable e) {
+                throw new PerformException.Builder().withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view)).withCause(e).build();
+            }
+        }
+
+        private void assertThat(boolean shown) {
         }
     }
 
