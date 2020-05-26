@@ -2,11 +2,14 @@ package com.example.android.architecture.blueprints.todoapp.test.chapter1.action
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.action.GeneralLocation;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.test.BaseTest;
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomRecyclerViewActions;
+import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomSwipeActions;
+import com.example.android.architecture.blueprints.todoapp.test.chapter2.customswipe.CustomSwipe;
 
 import org.junit.Test;
 
@@ -14,6 +17,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
@@ -30,6 +34,7 @@ import static com.example.android.architecture.blueprints.todoapp.test.chapter4.
 public class RecyclerViewActionsTest extends BaseTest {
 
     private ViewInteraction todoSavedSnackbar = onView(withText(R.string.successfully_saved_task_message));
+    private CustomSwipeActions customSwipeActions = new CustomSwipeActions();
 
     @Test
     public void addNewToDos() throws Exception {
@@ -57,6 +62,13 @@ public class RecyclerViewActionsTest extends BaseTest {
                 .perform(actionOnItemAtPosition(11, click()));
         Espresso.pressBack();
         onView(withId(R.id.tasks_list)).perform(scrollToPosition(2));
+    }
+
+    @Test
+    public void refreshListOfTasksByUsingSwipe() throws  Exception {
+        generateToDos(2);
+        onView(withId(R.id.tasks_list))
+                .perform(customSwipeActions.swipeCustom(10, GeneralLocation.TOP_CENTER, GeneralLocation.CENTER));
     }
 
     @Test
