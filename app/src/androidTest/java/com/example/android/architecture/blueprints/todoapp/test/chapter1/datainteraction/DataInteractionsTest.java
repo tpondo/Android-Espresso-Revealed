@@ -13,11 +13,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.PreferenceMatchers.withKey;
-import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
-import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -25,7 +21,6 @@ import static com.example.android.architecture.blueprints.todoapp.test.helpers.C
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.not;
 
 /**
  * DataInteraction samples.
@@ -76,13 +71,11 @@ public class DataInteractionsTest extends BaseTest {
                 .check(matches(withText("Notifications")))
                 .perform(click());
 
-        // Enable notifications if disabled
-        if (!isNotificationSwitchEnabled()) {
+        // Enable notifications
             onData(withKey("notifications_new_message"))
                     .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
                     .onChildView(allOf(withId(android.R.id.title), withText("Enable notifications")))
                     .perform(click());
-        }
 
         // Verify if notify when TO_DO older than option is visible
         onData(withKey("notifications_slider"))
@@ -99,17 +92,5 @@ public class DataInteractionsTest extends BaseTest {
                 .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
                 .onChildView(allOf(withId(android.R.id.title), withText("Vibrate")))
                 .check(matches(isDisplayed()));
-    }
-
-    private Boolean isNotificationSwitchEnabled() {
-        try {
-            onData(withKey("notifications_new_message"))
-                    .inAdapterView(allOf(withId(android.R.id.list), withParent(withId(android.R.id.list_container))))
-                    .onChildView(allOf(withId(android.R.id.switch_widget), withParent(hasSibling(withChild(withText("Enable notifications"))))))
-                    .check(matches(isChecked()));
-            return true;
-        } catch (Throwable e) {
-            return false;
-        }
     }
 }
