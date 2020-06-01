@@ -6,6 +6,7 @@ import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.uiautomator.UiDevice
+import android.util.Log
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.test.BaseTest
 import com.example.android.architecture.blueprints.todoapp.test.chapter1.data.TestData
@@ -26,6 +27,7 @@ class DeviceSetupTest : BaseTest() {
         super.setUp()
         toDoTitle = TestData.getToDoTitle()
         toDoDescription = TestData.getToDoDescription()
+      //  setDevicePreferences()
     }
 
     @Test
@@ -51,7 +53,7 @@ class DeviceSetupTest : BaseTest() {
         @JvmStatic
         fun setDevicePreferences() {
             val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
+            Log.e("test", "should work")
             // System animation properties.
             uiDevice.executeShellCommand("settings put global animator_duration_scale 0.0")
             uiDevice.executeShellCommand("settings put global transition_animation_scale 0.0")

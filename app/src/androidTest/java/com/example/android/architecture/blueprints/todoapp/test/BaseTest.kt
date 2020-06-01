@@ -9,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.customfailurehandler.CustomFailureHandler
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.screenshotwatcher.ScreenshotWatcher
+import com.example.android.architecture.blueprints.todoapp.test.customrules.RetryTestRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.RuleChain
@@ -29,6 +30,9 @@ open class BaseTest {
      */
     @get:Rule
     var testName = TestName()
+
+    @get:Rule
+    val retryTestRule = RetryTestRule()
 
     /**
      * Takes screenshot on test failure.

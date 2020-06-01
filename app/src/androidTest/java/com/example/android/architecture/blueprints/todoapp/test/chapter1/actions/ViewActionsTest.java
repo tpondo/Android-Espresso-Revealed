@@ -2,6 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.test.chapter1.action
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.test.BaseTest;
+import com.example.android.architecture.blueprints.todoapp.test.Flaky;
 import com.example.android.architecture.blueprints.todoapp.test.chapter1.data.TestData;
 
 import org.junit.Before;
@@ -35,6 +36,7 @@ public class ViewActionsTest extends BaseTest {
     }
 
     @Test
+    @Flaky
     public void addsNewToDo() {
         // Add new TO-DO.
         onView(withId(R.id.fab_add_task)).perform(click());
@@ -45,7 +47,7 @@ public class ViewActionsTest extends BaseTest {
         onView(withId(R.id.fab_edit_task_done)).perform(click());
 
         // Verify new TO-DO with title is shown in the TO-DO list.
-        onView(withText(toDoTitle)).check(matches(isDisplayed()));
+        onView(withText("toDoTitle")).check(matches(isDisplayed()));
     }
 
     @Test
