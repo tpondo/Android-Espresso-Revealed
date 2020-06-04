@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.test.chapter11.screens
+package com.example.android.architecture.blueprints.todoapp.test.screens
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView

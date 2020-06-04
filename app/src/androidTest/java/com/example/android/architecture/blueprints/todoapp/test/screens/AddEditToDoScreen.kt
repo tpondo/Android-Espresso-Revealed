@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.test.chapter11.screens
+package com.example.android.architecture.blueprints.todoapp.test.screens
 
 import android.widget.ImageButton
 import androidx.test.espresso.Espresso

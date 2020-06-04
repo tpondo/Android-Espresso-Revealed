@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.test.chapter11.screens
+package com.example.android.architecture.blueprints.todoapp.test.screens
 
 import android.widget.ImageButton
 import androidx.test.espresso.Espresso.onView
@@ -6,6 +6,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.android.architecture.blueprints.todoapp.R
+import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.SettingsScreen
+import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.StatisticsScreen
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.core.AllOf.allOf
 
