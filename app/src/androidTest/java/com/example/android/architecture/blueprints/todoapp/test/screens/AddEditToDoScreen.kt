@@ -16,31 +16,50 @@ import org.hamcrest.CoreMatchers.instanceOf
  */
 class AddEditToDoScreen {
 
-    private val addToDoDescriptionEditText = onView(withId(R.id.add_task_description))
-    private val addToDoTitleEditText = onView(withId(R.id.add_task_title))
-    private val doneFabButton = onView(withId(R.id.fab_edit_task_done))
-    private val emptyToDoSnackbar = onView(withText(R.string.empty_task_message))
-    private val upButton = onView(allOf(
+    /*
+    ELEMENTS
+     */
+    private val addToDoDescriptionEditText = allOf(
+            withId(R.id.add_task_description),
+            isCompletelyDisplayed()
+    )
+    private val addToDoTitleEditText = allOf(
+            withId(R.id.add_task_title),
+            isCompletelyDisplayed()
+    )
+    private val doneFabButton = allOf(
+            withId(R.id.fab_edit_task_done),
+            isCompletelyDisplayed()
+    )
+    private val emptyToDoSnackbar = allOf(
+            withText(R.string.empty_task_message),
+            isCompletelyDisplayed()
+    )
+    private val upButton = allOf(
             instanceOf(ImageButton::class.java),
-            withParent(withId(R.id.toolbar))))
-
+            withParent(withId(R.id.toolbar)),
+            isCompletelyDisplayed()
+    )
+    /*
+    ACTIONS
+     */
     fun typeToDoTitle(title: String): AddEditToDoScreen {
-        addToDoTitleEditText.perform(typeText(title), closeSoftKeyboard())
+        onView(addToDoTitleEditText).perform(typeText(title), closeSoftKeyboard())
         return this
     }
 
     fun typeToDoDescription(taskDescription: String): AddEditToDoScreen {
-        addToDoDescriptionEditText.perform(typeText(taskDescription), closeSoftKeyboard())
+        onView(addToDoDescriptionEditText).perform(typeText(taskDescription), closeSoftKeyboard())
         return this
     }
 
     fun updateToDoTitle(title: String): AddEditToDoScreen {
-        addToDoTitleEditText.perform(clearText(), typeText(title), closeSoftKeyboard())
+        onView(addToDoTitleEditText).perform(clearText(), typeText(title), closeSoftKeyboard())
         return this
     }
 
     fun updateToDoDescription(taskDescription: String): AddEditToDoScreen {
-        addToDoDescriptionEditText.perform(clearText(), typeText(taskDescription), closeSoftKeyboard())
+        onView(addToDoDescriptionEditText).perform(clearText(), typeText(taskDescription), closeSoftKeyboard())
         return this
     }
 
@@ -69,23 +88,20 @@ class AddEditToDoScreen {
         return this
     }
 
-    fun clickDoneFabButton(): ToDoListScreen {
-        doneFabButton.perform(click())
-        return ToDoListScreen()
+    fun clickDoneFabButton() {
+        onView(doneFabButton).perform(click())
     }
 
-    fun clickUpButton(): ToDoListScreen {
-        upButton.perform(click())
-        return ToDoListScreen()
+    fun clickUpButton() {
+        onView(upButton).perform(click())
     }
 
-    fun clickBackButton(): ToDoListScreen {
+    fun clickBackButton() {
         Espresso.pressBack()
-        return ToDoListScreen()
     }
 
     fun verifySnackbarForEmptyToDo(): AddEditToDoScreen {
-        emptyToDoSnackbar.check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(emptyToDoSnackbar).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         return this
     }
 }

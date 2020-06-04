@@ -21,96 +21,101 @@ import org.hamcrest.core.AllOf.allOf
  */
 class ToDoListScreen : BaseScreen() {
 
-    private val fabAddButton = onView(withId(R.id.fab_add_task))
-    private val toolbarMenuFilter = onView(withId(R.id.menu_filter))
-    private val todoList = onView(withId(R.id.tasks_list))
-    private val todoSavedSnackbar = withText(R.string.successfully_saved_task_message)
-    private val youHaveNoToDosText = onView(withText(R.string.no_tasks_all))
-    private val taskMarkedCompleteSnackbar = onView(withText(R.string.task_marked_complete))
-    private val snackbar = onView(withText(R.id.snackbar_text))
-    private val screenTitle = onView(allOf(withText(R.string.app_name), withParent(withId(R.id.toolbar))))
+    /*
+    ELEMENTS
+     */
+    private val fabAddButton = allOf(withId(R.id.fab_add_task), isCompletelyDisplayed())
+    private val toolbarMenuFilter = allOf(withId(R.id.menu_filter), isCompletelyDisplayed())
+    private val todoList = allOf(withId(R.id.tasks_list), isCompletelyDisplayed())
+    private val todoSavedSnackbar = allOf(withText(R.string.successfully_saved_task_message), isCompletelyDisplayed())
+    private val youHaveNoToDosText = allOf(withText(R.string.no_tasks_all), isCompletelyDisplayed())
+    private val taskMarkedCompleteSnackbar = allOf(withText(R.string.task_marked_complete), isCompletelyDisplayed())
+    private val snackbar = allOf(withText(R.id.snackbar_text), isCompletelyDisplayed())
+    private val screenTitle = allOf(withText(R.string.app_name), withParent(withId(R.id.toolbar)))
 
-    private val allFilterItem = onView(allOf(withId(R.id.title), withText(R.string.nav_all)))
-    private val completedFilterItem = onView(allOf(withId(R.id.title), withText(R.string.nav_completed)))
-    private val activeFilterItem = onView(allOf(withId(R.id.title), withText(R.string.nav_active)))
+    private val allFilterItem = allOf(withId(R.id.title), withText(R.string.nav_all))
+    private val completedFilterItem = allOf(withId(R.id.title), withText(R.string.nav_completed))
+    private val activeFilterItem = allOf(withId(R.id.title), withText(R.string.nav_active))
 
-    private val clearCompletedMenuItem = onView(allOf(withId(R.id.title), withText(R.string.menu_clear)))
-    private val refreshMenuItem = onView(allOf(withId(R.id.title), withText(R.string.refresh)))
+    private val clearCompletedMenuItem = allOf(withId(R.id.title), withText(R.string.menu_clear))
+    private val refreshMenuItem = allOf(withId(R.id.title), withText(R.string.refresh))
 
+    /*
+    ACTIONS
+     */
     fun openTaskDetails(taskTitle: String): ToDoDetailsScreen {
-        todoList.perform(actionOnHolderItem<RecyclerView.ViewHolder>(withTitle(taskTitle), click()))
+        onView(todoList).perform(actionOnHolderItem<RecyclerView.ViewHolder>(withTitle(taskTitle), click()))
         return ToDoDetailsScreen()
     }
 
     fun openFilter(): ToDoListScreen {
-        toolbarMenuFilter.perform(click())
+        onView(toolbarMenuFilter).perform(click())
         return this
     }
 
-    fun clickAddFabButton(): AddEditToDoScreen {
+    fun clickAddFabButton() {
         ConditionWatchers.waitForElementIsGone(todoSavedSnackbar)
         ConditionWatchers.waitForElementIsGone(taskMarkedCompleteSnackbar)
-        fabAddButton.perform(click())
-        return AddEditToDoScreen()
+        onView(fabAddButton).perform(click())
     }
 
     fun verifyToDoIsDisplayed(taskItem: TodoItem?): ToDoListScreen {
         ConditionWatchers.waitForElementIsGone(todoSavedSnackbar)
-        todoList.perform(scrollToHolder<RecyclerView.ViewHolder>(withTitle(taskItem!!.title)))
+        onView(todoList).perform(scrollToHolder<RecyclerView.ViewHolder>(withTitle(taskItem!!.title)))
         return this
     }
 
     fun verifyToDoItemNotShown(taskItem: TodoItem?): ToDoListScreen {
-        todoList.perform(verifyTaskNotInTheList(taskItem))
+        onView(todoList).perform(verifyTaskNotInTheList(taskItem))
         return this
     }
 
     fun verifyToDoListScreenInitialState(): ToDoListScreen {
-        screenTitle.check(matches(isDisplayed()))
-        youHaveNoToDosText.check(matches(isDisplayed()))
-        fabAddButton.check(matches(isDisplayed()))
-        toolbarMenuFilter.check(matches(isDisplayed()))
+        onView(screenTitle).check(matches(isDisplayed()))
+        onView(youHaveNoToDosText).check(matches(isDisplayed()))
+        onView(fabAddButton).check(matches(isDisplayed()))
+        onView(toolbarMenuFilter).check(matches(isDisplayed()))
         return this
     }
 
     fun showAllTasks(): ToDoListScreen {
-        toolbarMenuFilter.perform(click())
-        allFilterItem.perform(click())
+        onView(toolbarMenuFilter).perform(click())
+        onView(allFilterItem).perform(click())
         return this
     }
 
     fun showActiveTasks(): ToDoListScreen {
-        toolbarMenuFilter.perform(click())
-        activeFilterItem.perform(click())
+        onView(toolbarMenuFilter).perform(click())
+        onView(activeFilterItem).perform(click())
         return this
     }
 
     fun completeTask(taskItem: TodoItem?): ToDoListScreen {
-        todoList.perform(clickTodoCheckBoxWithTitle(taskItem!!.title))
+        onView(todoList).perform(clickTodoCheckBoxWithTitle(taskItem!!.title))
         return this
     }
 
     fun showCompletedTasks(): ToDoListScreen {
-        toolbarMenuFilter.perform(click())
-        completedFilterItem.perform(click())
+        onView(toolbarMenuFilter).perform(click())
+        onView(completedFilterItem).perform(click())
         return this
     }
 
     fun clearCompletedTasks(): ToDoListScreen {
         openContextualActionModeOverflowMenu()
-        clearCompletedMenuItem.perform(click())
+        onView(clearCompletedMenuItem).perform(click())
         return this
     }
 
     fun refreshTasksList(): ToDoListScreen {
         openContextualActionModeOverflowMenu()
-        refreshMenuItem.perform(click())
+        onView(refreshMenuItem).perform(click())
         return this
     }
 
     fun shareTaskList(): ToDoListScreen {
         openContextualActionModeOverflowMenu()
-        clearCompletedMenuItem.perform(click())
+        onView(clearCompletedMenuItem).perform(click())
         return this
     }
 }

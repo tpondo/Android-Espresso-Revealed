@@ -17,49 +17,56 @@ import org.hamcrest.core.AllOf.allOf
  */
 open class BaseScreen {
 
-    private val hamburgerButton = onView(allOf(
+    private val hamburgerButton = allOf(
             instanceOf(ImageButton::class.java),
-            withParent(withId(R.id.toolbar))))
+            withParent(withId(R.id.toolbar)),
+            isCompletelyDisplayed()
+    )
 
     fun openMenu(): MenuDrawerView {
-        hamburgerButton.perform(click())
+        onView(hamburgerButton).perform(click())
         return MenuDrawerView()
     }
 
     inner class MenuDrawerView {
-        private val todoListMenuItem = onView(allOf(
+        private val todoListMenuItem = allOf(
                 withId(R.id.design_menu_item_text),
-                withText(R.string.list_title)))
-        private val statisticsMenuItem = onView(allOf(
+                withText(R.string.list_title),
+                isCompletelyDisplayed()
+        )
+        private val statisticsMenuItem = allOf(
                 withId(R.id.design_menu_item_text),
-                withText(R.string.statistics_title)))
-        private val settingsMenuItem = onView(allOf(
+                withText(R.string.statistics_title),
+                isCompletelyDisplayed()
+        )
+        private val settingsMenuItem = allOf(
                 withId(R.id.design_menu_item_text),
-                withText(R.string.settings_title)))
-        private val todoMenuLogo = onView(withId(R.id.headerTodoLogo))
-        private val todoMenuText = onView(withId(R.id.headerTodoText))
+                withText(R.string.settings_title),
+                isCompletelyDisplayed()
+        )
+        private val todoMenuLogo = allOf(withId(R.id.headerTodoLogo), isCompletelyDisplayed())
+        private val todoMenuText = allOf(withId(R.id.headerTodoText), isCompletelyDisplayed())
 
-        fun clickTodoListMenuItem(): ToDoListScreen {
-            todoListMenuItem.perform(click())
-            return ToDoListScreen()
+        fun clickTodoListMenuItem() {
+            onView(todoListMenuItem).perform(click())
         }
 
-        fun clickStatisticsMenuItem(): StatisticsScreen {
-            statisticsMenuItem.perform(click())
-            return StatisticsScreen()
+        fun clickStatisticsMenuItem() {
+            onView(statisticsMenuItem).perform(click())
         }
 
-        fun clickSettingsMenuItem(): SettingsScreen {
-            settingsMenuItem.perform(click())
-            return SettingsScreen()
+        fun clickSettingsMenuItem() {
+            onView(settingsMenuItem).perform(click())
         }
 
         fun verifyMenuLayout(): MenuDrawerView {
-            todoMenuText.check(matches(allOf(
-                    isDisplayed(),
-                    withText(R.string.navigation_view_header_title))))
-            statisticsMenuItem.check(matches(isDisplayed()))
-            todoListMenuItem.check(matches(isDisplayed()))
+            onView(todoMenuText).check(matches(allOf(
+                    withText(R.string.navigation_view_header_title),
+                    isCompletelyDisplayed()
+            )))
+
+            onView(statisticsMenuItem).check(matches(isDisplayed()))
+            onView(todoListMenuItem).check(matches(isDisplayed()))
             return this
         }
     }
