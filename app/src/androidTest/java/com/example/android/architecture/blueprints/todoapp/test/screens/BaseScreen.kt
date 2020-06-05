@@ -1,5 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.test.screens
 
+import android.view.View
 import android.widget.ImageButton
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -8,7 +9,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.SettingsScreen
 import com.example.android.architecture.blueprints.todoapp.test.chapter11.screens.StatisticsScreen
+import com.example.android.architecture.blueprints.todoapp.test.resources.NoAction
 import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.Matcher
 import org.hamcrest.core.AllOf.allOf
 
 /**
@@ -68,6 +71,15 @@ open class BaseScreen {
             onView(statisticsMenuItem).check(matches(isDisplayed()))
             onView(todoListMenuItem).check(matches(isDisplayed()))
             return this
+        }
+    }
+
+    fun viewExists(element: Matcher<View>): Boolean {
+        return try {
+            onView(element).perform(NoAction())
+            true
+        } catch (e: Throwable) {
+            false
         }
     }
 }
