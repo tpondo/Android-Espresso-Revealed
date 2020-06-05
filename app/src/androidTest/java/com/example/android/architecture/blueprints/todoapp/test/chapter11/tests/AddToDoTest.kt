@@ -10,30 +10,30 @@ import org.junit.Test
  */
 class AddToDoTest : BaseTest() {
 
-    @Test
-    fun addsNewTodo() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addNewToDo(todoItem)
-                .verifyToDoIsDisplayed(todoItem)
-    }
-
-    @Test
-    fun addsNewTodoWithoutDescription() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .typeToDoTitle(todoItem.title)
-                .clickDoneFabButton()
-                .verifyToDoIsDisplayed(todoItem)
-    }
-
-    @Test
-    fun triesToAddEmptyToDo() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addEmptyToDo()
-                .verifySnackbarForEmptyToDo()
-    }
+//    @Test
+//    fun addsNewTodo() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addNewToDo(todoItem)
+//                .verifyToDoIsDisplayed(todoItem)
+//    }
+//
+//    @Test
+//    fun addsNewTodoWithoutDescription() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .typeToDoTitle(todoItem.title)
+//                .clickDoneFabButton()
+//                .verifyToDoIsDisplayed(todoItem)
+//    }
+//
+//    @Test
+//    fun triesToAddEmptyToDo() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addEmptyToDo()
+//                .verifySnackbarForEmptyToDo()
+//    }
 
     companion object {
         private var todoItem = TodoItem()

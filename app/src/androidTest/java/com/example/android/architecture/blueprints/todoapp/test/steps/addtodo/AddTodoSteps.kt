@@ -3,6 +3,7 @@ package com.example.android.architecture.blueprints.todoapp.test.steps.addtodo
 import android.util.Log
 import androidx.test.rule.ActivityTestRule
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
+import com.example.android.architecture.blueprints.todoapp.test.screens.AddEditToDoScreen
 import com.example.android.architecture.blueprints.todoapp.test.screens.ToDoListScreen
 import cucumber.api.java.After
 import cucumber.api.java.Before
@@ -15,8 +16,9 @@ import org.junit.Assert.assertTrue
 class AddTodoSteps {
 
     private val toDoListScreen = ToDoListScreen()
+    private val addEditToDoScreen = AddEditToDoScreen()
 
-    var rule = ActivityTestRule(TasksActivity::class.java,false,false)
+    var rule = ActivityTestRule(TasksActivity::class.java, false, false)
 
     @Before
     @Throws(Exception::class)
@@ -32,7 +34,7 @@ class AddTodoSteps {
 
     @Given("I can see todo list")
     fun i_can_see_todo_list() {
-        assertTrue("Todo list is not displayed",toDoListScreen.isTodoListDisplayed())
+        assertTrue("Todo list is not displayed", toDoListScreen.isTodoListDisplayed())
     }
 
     @When("I click add button")
@@ -40,28 +42,23 @@ class AddTodoSteps {
         toDoListScreen.clickOnAddButton()
     }
 
-    @And("I enter todo title")
-    fun test_3() {
-        Log.e("cucu", "then")
+    @And("I enter todo title {string}")
+    fun i_enter_todo_title(title: String) {
+        addEditToDoScreen.typeToDoTitle(title)
     }
 
-    @And("I click description field")
-    fun test_4() {
-        Log.e("cucu", "then")
-    }
-
-    @And("I enter description")
-    fun test_5() {
-        Log.e("cucu", "then")
+    @And("I enter todo description {string}")
+    fun i_enter_todo_description(description: String) {
+        addEditToDoScreen.typeToDoDescription(description)
     }
 
     @And("I click done button")
-    fun test_6() {
-        Log.e("cucu", "then")
+    fun i_click_done_button() {
+        addEditToDoScreen.clickDoneFabButton()
     }
 
-    @Then("I expect to see successfully added todo on the list")
-    fun asd() {
-
+    @Then("I expect to see successfully added todo on the list {string}")
+    fun i_expect_to_see_successfully_added_todo_on_the_list(title: String) {
+        assertTrue("Added todo is not displayed on the list", toDoListScreen.isAddedTodoDisplayed(title))
     }
 }

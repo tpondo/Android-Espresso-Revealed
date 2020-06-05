@@ -13,6 +13,7 @@ import com.example.android.architecture.blueprints.todoapp.test.chapter11.testda
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomRecyclerViewActions.ClickTodoCheckBoxWithTitleViewAction.clickTodoCheckBoxWithTitle
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomViewActions.verifyTaskNotInTheList
 import com.example.android.architecture.blueprints.todoapp.test.chapter2.custommatchers.RecyclerViewMatchers.withTitle
+import com.example.android.architecture.blueprints.todoapp.test.chapter3.actionAtPosition
 import com.example.android.architecture.blueprints.todoapp.test.chapter4.conditionwatchers.ConditionWatchers
 import org.hamcrest.core.AllOf.allOf
 
@@ -24,7 +25,10 @@ class ToDoListScreen : BaseScreen() {
     /*
     ELEMENTS
      */
-    private val tasksContainer = withId(R.id.tasksContainer)
+    private val addButton = allOf(
+            withId(R.id.fab_add_task),
+            isCompletelyDisplayed()
+    )
     private val toolbar = withId(R.id.toolbar)
     private val todoHeader = allOf(
             isDescendantOfA(toolbar),
@@ -37,15 +41,11 @@ class ToDoListScreen : BaseScreen() {
             isCompletelyDisplayed()
     )
 
+    private val todoSavedSnackbar = allOf(withText(R.string.successfully_saved_task_message), isCompletelyDisplayed())
     /*
     ACTIONS
      */
     fun clickOnAddButton() {
-        val addButton = allOf(
-                isDescendantOfA(tasksContainer),
-                withId(R.id.fab_add_task),
-                isCompletelyDisplayed()
-        )
         onView(addButton).perform(click())
     }
 
@@ -54,5 +54,15 @@ class ToDoListScreen : BaseScreen() {
      */
     fun isTodoListDisplayed(): Boolean {
        return viewExists(todoHeader) && viewExists(youHaveNoTodosInformation)
+    }
+
+    fun isAddedTodoDisplayed(todoTitle : String): Boolean {
+        val addedTodo = allOf(
+                withId(R.id.todo_title),
+                withText(todoTitle),
+                isCompletelyDisplayed()
+        )
+        ConditionWatchers.waitForElementIsGone(todoSavedSnackbar)
+        return viewExists(addedTodo)
     }
 }

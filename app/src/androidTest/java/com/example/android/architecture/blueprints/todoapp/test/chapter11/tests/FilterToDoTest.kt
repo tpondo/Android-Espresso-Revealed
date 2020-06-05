@@ -10,44 +10,44 @@ import org.junit.Test
  */
 class FilterToDoTest : BaseTest() {
 
-    @Test
-    fun showsActiveToDos() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addNewToDo(taskItem1)
-                .completeTask(taskItem1)
-                .clickAddFabButton()
-                .addNewToDo(taskItem2)
-                .showActiveTasks()
-                .verifyToDoIsDisplayed(taskItem2)
-                .verifyToDoItemNotShown(taskItem1)
-    }
-
-    @Test
-    fun showsCompletedToDos() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addNewToDo(taskItem1)
-                .completeTask(taskItem1)
-                .clickAddFabButton()
-                .addNewToDo(taskItem2)
-                .showCompletedTasks()
-                .verifyToDoIsDisplayed(taskItem1)
-                .verifyToDoItemNotShown(taskItem2)
-    }
-
-    @Test
-    fun showsAllToDos() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addNewToDo(taskItem1)
-                .completeTask(taskItem1)
-                .clickAddFabButton()
-                .addNewToDo(taskItem2)
-                .showAllTasks()
-                .verifyToDoIsDisplayed(taskItem1)
-                .verifyToDoIsDisplayed(taskItem2)
-    }
+//    @Test
+//    fun showsActiveToDos() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem1)
+//                .completeTask(taskItem1)
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem2)
+//                .showActiveTasks()
+//                .verifyToDoIsDisplayed(taskItem2)
+//                .verifyToDoItemNotShown(taskItem1)
+//    }
+//
+//    @Test
+//    fun showsCompletedToDos() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem1)
+//                .completeTask(taskItem1)
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem2)
+//                .showCompletedTasks()
+//                .verifyToDoIsDisplayed(taskItem1)
+//                .verifyToDoItemNotShown(taskItem2)
+//    }
+//
+//    @Test
+//    fun showsAllToDos() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem1)
+//                .completeTask(taskItem1)
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem2)
+//                .showAllTasks()
+//                .verifyToDoIsDisplayed(taskItem1)
+//                .verifyToDoIsDisplayed(taskItem2)
+//    }
 
     companion object {
         private var taskItem1 = TodoItem()

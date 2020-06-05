@@ -10,18 +10,18 @@ import org.junit.Test
  */
 class EditToDoTest : BaseTest() {
 
-    @Test
-    fun verifiesTaskEditing() {
-        ToDoListScreen()
-                .clickAddFabButton()
-                .addNewToDo(taskItem1)
-                .verifyToDoIsDisplayed(taskItem1)
-                .openTaskDetails(taskItem1.title)
-                .clickEditToDoFabButton()
-                .updateToDo(taskItem2)
-                .verifyToDoItemNotShown(taskItem1)
-                .verifyToDoIsDisplayed(taskItem2)
-    }
+//    @Test
+//    fun verifiesTaskEditing() {
+//        ToDoListScreen()
+//                .clickAddFabButton()
+//                .addNewToDo(taskItem1)
+//                .verifyToDoIsDisplayed(taskItem1)
+//                .openTaskDetails(taskItem1.title)
+//                .clickEditToDoFabButton()
+//                .updateToDo(taskItem2)
+//                .verifyToDoItemNotShown(taskItem1)
+//                .verifyToDoIsDisplayed(taskItem2)
+//    }
 
     companion object {
         private var taskItem1 = TodoItem()
