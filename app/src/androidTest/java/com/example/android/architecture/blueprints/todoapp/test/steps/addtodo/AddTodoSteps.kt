@@ -1,6 +1,5 @@
 package com.example.android.architecture.blueprints.todoapp.test.steps.addtodo
 
-import android.util.Log
 import androidx.test.rule.ActivityTestRule
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.test.screens.AddEditToDoScreen
@@ -20,20 +19,10 @@ class AddTodoSteps {
 
     var rule = ActivityTestRule(TasksActivity::class.java, false, false)
 
-    @Before
-    @Throws(Exception::class)
-    fun launchActivity() {
-        rule.launchActivity(null)
-    }
-
-    @After
-    @Throws(java.lang.Exception::class)
-    fun finishActivity() {
-        rule.finishActivity()
-    }
 
     @Given("I can see todo list")
     fun i_can_see_todo_list() {
+        rule.launchActivity(null)
         assertTrue("Todo list is not displayed", toDoListScreen.isTodoListDisplayed())
     }
 

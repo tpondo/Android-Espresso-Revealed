@@ -5,7 +5,7 @@ import cucumber.api.CucumberOptions
 import cucumber.api.android.CucumberAndroidJUnitRunner
 import java.io.File
 
-@CucumberOptions(glue = ["com.example.android.architecture.blueprints.todoapp.test.steps"],features = ["features"])
+@CucumberOptions(glue = ["com.example.android.architecture.blueprints.todoapp.test.steps"],features = ["features"], tags = ["@wip"])
 class CucumberTestRunner : CucumberAndroidJUnitRunner() {
     override fun onCreate(bundle: Bundle) {
         bundle.putString("plugin", pluginConfigurationString) // we programmatically create the plugin configuration
