@@ -30,6 +30,10 @@ class EnablesNotificationsSteps {
 
     var rule = ActivityTestRule(TasksActivity::class.java, false, false)
 
+    @Before
+    fun setup() {
+        Log.e("before", "enable notif steps")
+    }
 
     @Given("I can see list of todos")
     fun i_can_see_list_of_todos() {
