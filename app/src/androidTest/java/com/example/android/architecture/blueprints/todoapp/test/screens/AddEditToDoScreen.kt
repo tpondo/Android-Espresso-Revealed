@@ -1,20 +1,17 @@
 package com.example.android.architecture.blueprints.todoapp.test.screens
 
-import android.widget.ImageButton
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.android.architecture.blueprints.todoapp.R
-import com.example.android.architecture.blueprints.todoapp.test.chapter11.testdata.TodoItem
+import com.example.android.architecture.blueprints.todoapp.test.resources.NoAction
 import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.instanceOf
 
 /**
  * Represents both Create new TO-DO and Edit existing TO-DO screens.
  */
-class AddEditToDoScreen {
+class AddEditToDoScreen : BaseScreen() {
 
     /*
     ELEMENTS
@@ -32,6 +29,9 @@ class AddEditToDoScreen {
             isCompletelyDisplayed()
     )
 
+    private val emptyTitlePopupText = withText(R.string.add_task_empty_title)
+
+
     /*
     ACTIONS
      */
@@ -47,7 +47,16 @@ class AddEditToDoScreen {
 
 
     fun clickDoneFabButton() {
-        onView(doneFabButton).perform(click())
+        onView(doneFabButton).perform(closeSoftKeyboard(),click())
+    }
+
+    fun isEmptyTitlePopupDisplayed(): Boolean {
+        return try {
+           onView(emptyTitlePopupText).inRoot(isPlatformPopup()).perform(NoAction())
+       true
+        } catch (e: Throwable) {
+            false
+        }
     }
 
 }

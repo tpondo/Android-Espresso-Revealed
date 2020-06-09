@@ -1,19 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.test.screens
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions.actionOnHolderItem
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollToHolder
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.android.architecture.blueprints.todoapp.R
-import com.example.android.architecture.blueprints.todoapp.test.chapter11.testdata.TodoItem
-import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomRecyclerViewActions.ClickTodoCheckBoxWithTitleViewAction.clickTodoCheckBoxWithTitle
-import com.example.android.architecture.blueprints.todoapp.test.chapter2.customactions.CustomViewActions.verifyTaskNotInTheList
-import com.example.android.architecture.blueprints.todoapp.test.chapter2.custommatchers.RecyclerViewMatchers.withTitle
-import com.example.android.architecture.blueprints.todoapp.test.chapter3.actionAtPosition
 import com.example.android.architecture.blueprints.todoapp.test.chapter4.conditionwatchers.ConditionWatchers
 import org.hamcrest.core.AllOf.allOf
 
@@ -56,13 +46,22 @@ class ToDoListScreen : BaseScreen() {
        return viewExists(todoHeader) && viewExists(youHaveNoTodosInformation)
     }
 
-    fun isAddedTodoDisplayed(todoTitle : String): Boolean {
-        val addedTodo = allOf(
+    /*
+    Needs to check if added item is displayed with proper title OR description
+    because when item is added without title then description is displayed instead
+     */
+    fun isAddedTodoDisplayed(todoTitle : String, todoDescription : String): Boolean {
+        val addedTodoTitle = allOf(
                 withId(R.id.todo_title),
                 withText(todoTitle),
                 isCompletelyDisplayed()
         )
+        val addedTodoDescription = allOf(
+                withId(R.id.todo_title),
+                withText(todoDescription),
+                isCompletelyDisplayed()
+        )
         ConditionWatchers.waitForElementIsGone(todoSavedSnackbar)
-        return viewExists(addedTodo)
+        return viewExists(addedTodoTitle) || viewExists(addedTodoDescription)
     }
 }

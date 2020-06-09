@@ -1,12 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.test.steps.addtodo
 
-import android.util.Log
-import androidx.test.rule.ActivityTestRule
-import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.test.screens.AddEditToDoScreen
 import com.example.android.architecture.blueprints.todoapp.test.screens.ToDoListScreen
-import cucumber.api.java.After
-import cucumber.api.java.Before
 import cucumber.api.java.en.And
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
@@ -18,16 +13,8 @@ class AddTodoSteps {
     private val toDoListScreen = ToDoListScreen()
     private val addEditToDoScreen = AddEditToDoScreen()
 
-    var rule = ActivityTestRule(TasksActivity::class.java, false, false)
-
-    @Before
-    fun setup() {
-        Log.e("before", "add todo steps")
-    }
-
     @Given("I can see todo list")
     fun i_can_see_todo_list() {
-        rule.launchActivity(null)
         assertTrue("Todo list is not displayed", toDoListScreen.isTodoListDisplayed())
     }
 
@@ -51,8 +38,16 @@ class AddTodoSteps {
         addEditToDoScreen.clickDoneFabButton()
     }
 
-    @Then("I expect to see successfully added todo on the list {string}")
-    fun i_expect_to_see_successfully_added_todo_on_the_list(title: String) {
-        assertTrue("Added todo is not displayed on the list", toDoListScreen.isAddedTodoDisplayed(title))
+    @Then("I expect to see successfully added todo on the list {string} {string}")
+    fun i_expect_to_see_successfully_added_todo_on_the_list(title: String, description: String) {
+        assertTrue("Added todo is not displayed on the list", toDoListScreen.isAddedTodoDisplayed(title, description))
+    }
+
+    /*
+    Result for empty added todo
+     */
+    @Then("I expect to see information that todo item can not be empty")
+    fun i_expect_to_see_information_that_todo_item_can_not_be_empty() {
+        addEditToDoScreen.isEmptyTitlePopupDisplayed()
     }
 }
