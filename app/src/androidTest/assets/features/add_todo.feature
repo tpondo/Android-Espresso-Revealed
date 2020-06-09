@@ -12,8 +12,8 @@ Feature: Add todo
     Examples:
       | title                              | description                       |
       | todo title                         | todo description                  |
-      | only Title                         |                                   |
-      |                                    | only Description                  |
+      | Only Title                         |                                   |
+      |                                    | Only Description                  |
       | !\"#$%&'()*+,-./:;<=>?@[\]^_`{\|}~ | !#$%&'()*+,-./:;<=>?@[\]^_`{\|\}~ |
       | 1234567890                         | 1234567890                        |
 
