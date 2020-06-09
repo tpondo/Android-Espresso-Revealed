@@ -40,24 +40,24 @@ class StubSelectImageIntentTest {
         toDoDescription = TestData.getToDoDescription()
     }
 
-    @Test
-    fun stubsImageIntentWithDrawable() {
-        val toDoImage =
-                com.example.android.architecture.blueprints.todoapp.mock.test.R.drawable.todo_image_drawable
-
-        Intents.intending(not(isInternal()))
-                .respondWith(IntentHelper.createImageResultFromDrawable(toDoImage))
-
-        // Adding new TO-DO.
-        addFab.click()
-        taskTitleField.type(toDoTitle).closeKeyboard()
-        taskDescriptionField.type(toDoDescription).closeKeyboard()
-
-        // Click on Get image from gallery button. At this point stubbed image is returned.
-        addImageButton.click()
-        editDoneFab.click()
-        viewWithText(toDoTitle).click()
-    }
+//    @Test
+//    fun stubsImageIntentWithDrawable() {
+//        val toDoImage =
+//                com.example.android.architecture.blueprints.todoapp.mock.test.R.drawable.todo_image_drawable
+//
+//        Intents.intending(not(isInternal()))
+//                .respondWith(IntentHelper.createImageResultFromDrawable(toDoImage))
+//
+//        // Adding new TO-DO.
+//        addFab.click()
+//        taskTitleField.type(toDoTitle).closeKeyboard()
+//        taskDescriptionField.type(toDoDescription).closeKeyboard()
+//
+//        // Click on Get image from gallery button. At this point stubbed image is returned.
+//        addImageButton.click()
+//        editDoneFab.click()
+//        viewWithText(toDoTitle).click()
+//    }
 
     @Test
     fun stubsImageIntentWithAsset() {
