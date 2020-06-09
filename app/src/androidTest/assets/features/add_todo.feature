@@ -15,7 +15,7 @@ Feature: Add todo
       | only Title                         |                                   |
       |                                    | only Description                  |
       | !\"#$%&'()*+,-./:;<=>?@[\]^_`{\|}~ | !#$%&'()*+,-./:;<=>?@[\]^_`{\|\}~ |
-
+      | 1234567890                         | 1234567890                        |
 
   @wip
   Scenario: Add empty todo
